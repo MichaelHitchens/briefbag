@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+# Specify your gem's dependencies in briefbag.gemspec
+gemspec
+
+gem 'anyway_config'
+gem 'diplomat'
+gem 'hash_to_struct'
+gem 'rainbow'
