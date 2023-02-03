@@ -7,7 +7,7 @@ require 'briefbag/version'
 Gem::Specification.new do |spec|
   spec.name          = 'briefbag'
   spec.version       = Briefbag::VERSION
-  spec.authors       = ['MichaelHitchens']
+  spec.authors       = ['Michael Hitchens']
   spec.email         = ['mmseleznev@gmail.com']
 
   spec.summary = 'Briefbag manage your config'
