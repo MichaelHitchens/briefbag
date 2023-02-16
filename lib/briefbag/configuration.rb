@@ -44,6 +44,7 @@ module Briefbag
 
     def file_config
       Briefbag.warning_message(MESSAGES[:notice_yml])
+      Anyway::Settings.default_config_path = 'config'
       data = Anyway::Config.for(config_name.to_sym, env_prefix: config[:environment])
 
       return HashToStruct.struct(data.deep_symbolize_keys) if defined?(Rails)
