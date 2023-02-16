@@ -3,7 +3,6 @@
 require 'briefbag/diplomat'
 require 'anyway_config'
 require 'rainbow'
-require 'byebug'
 require 'hash_to_struct'
 
 module Briefbag

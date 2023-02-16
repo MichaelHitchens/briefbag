@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'diplomat'
-require 'byebug'
 require 'socket'
 
 module Briefbag
