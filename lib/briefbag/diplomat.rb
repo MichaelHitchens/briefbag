@@ -67,7 +67,7 @@ module Briefbag
     end
 
     def url_build
-      Object.const_get("URI::HTTP#{port.eql?(443) ? 'S' : ''}").build(host:, port:)
+      Object.const_get("URI::HTTP#{port.eql?(443) ? 'S' : ''}").build(host: host, port: port)
     end
 
     def check_consul

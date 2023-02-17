@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.summary = 'Briefbag manage your config'
   spec.homepage = 'https://github.com/MichaelHitchens/briefbag'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.1.2'
+  spec.required_ruby_version = '>= 2.7.5'
 
   spec.metadata = {
     'homepage_uri' => spec.homepage,
@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rainbow', '~> 3.1.1'
   spec.add_dependency 'rake', '~> 13.0.6'
 
-  spec.add_development_dependency 'bundler', '~> 2.3.26'
+  spec.add_development_dependency 'bundler', '~> 2.1.4'
   spec.add_development_dependency 'byebug', '~> 11.1.3'
   spec.add_development_dependency 'faker', '~> 3.1.1'
   spec.add_development_dependency 'rake', '~> 13.0.6'
