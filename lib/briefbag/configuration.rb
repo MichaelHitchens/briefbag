@@ -25,11 +25,12 @@ module Briefbag
     end
 
     def call
-      diplomat = Briefbag::Diplomat.new(config).call
-      return file_config if file_exist? && config[:environment].eql?('development')
+      return file_config if file_exist?
 
-      return diplomat_config(diplomat[:consul_data]) if diplomat.success?
+      diplomat = Briefbag::Diplomat.new(config).call
       return Briefbag.aborting_message(MESSAGES[:error_consul]) unless diplomat.success?
+
+      diplomat_config(diplomat[:consul_data])
     rescue StandardError
       return Briefbag.aborting_message(MESSAGES[:error_yml]) unless file_exist?
 
