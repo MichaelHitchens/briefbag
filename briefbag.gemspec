@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'diplomat', '2.4.4'
   spec.add_dependency 'hash_to_struct', '>=1.0.0'
   spec.add_dependency 'rainbow', '~> 3.1.1'
-  spec.add_dependency 'rake', '13.0.6'
+  spec.add_dependency 'rake', '13.0.3'
 
   spec.add_development_dependency 'bundler', '~> 2.3.26'
   spec.add_development_dependency 'byebug', '~> 11.1.3'
