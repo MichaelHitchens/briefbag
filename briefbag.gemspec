@@ -16,9 +16,9 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.4.2'
 
   spec.metadata = {
-    :homepage_uri => spec.homepage,
-    :source_code_uri => spec.homepage,
-    :changelog_uri => 'https://github.com/MichaelHitchens/briefbag/blob/master/CHANGELOG.md'
+    'homepage_uri' => spec.homepage,
+    'source_code_uri' => spec.homepage,
+    'changelog_uri' => 'https://github.com/MichaelHitchens/briefbag/blob/master/CHANGELOG.md'
   }
 
   # Specify which files should be added to the gem when it is released.
