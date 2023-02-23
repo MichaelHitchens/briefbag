@@ -25,40 +25,26 @@ therefore, the appeal becomes simpler: `APPLICATION_CONFIG.database.port`
 
 And what if you need to share the configuration file with colleagues, or use this design at other stands - `production` environment. 
 Consul comes to the rescue. Thanks to him, you can act config and undress in different stands.
-Generation `.yml` file there are 2 rake tasks: rake
-
-- **rake settings:consul2yml** -  Get key/value variables from consul to `.yml` file
-- **rake settings:template2yml** - Generate basic `.yml` for your app. Based on it, you can fill it with any values
-
-
-Need add to you Rakefile
-```ruby
-
-require 'briefbag'
-
-spec = Gem::Specification.find_by_name 'briefbag'
-load "#{spec.gem_dir}/lib/tasks/settings.rake"
-```
 
 #### Notifications:
 If you use `.yml` .You will see: 
-> NOTICE! Your app using configs from yml file
+> NOTICE! Your app is using configs from yml file
 
 If you use Consul. You will see: 
 
-> NOTICE! Your app using configs from consul now
-If you want to use local configs need to create config file. Just run `rake settings:consul2yml`
+> NOTICE! Your app is using configs from consul now
+        If you want to use local configs. you need to create config file. Just run `rake settings:consul2yml`
 
 
 If you don't have access to consul (for example VPN or bad connections)
 You will see:
->ALARM! You try are get consul config, but not connection to consul.
-Please! connect to VPN or check consul configuration
+>ALARM! You are trying to get consul config, but you have no consul connection.
+        Please! connect to VPN or check consul configuration
 
 ## Installation
 Adding to your project:
 
-```ruby
+```sh
 gem 'briefbag'
 ```
 Then run `bundle install`
@@ -66,7 +52,9 @@ Then run `bundle install`
 or 
 
 Or install it yourself as:
-`gem install briefbag`
+```sh
+gem install briefbag
+````
 
 # Usage
 > params to input:
