@@ -2,7 +2,6 @@
 
 require 'briefbag/version'
 require 'briefbag/configuration'
-require 'multipart/post'
 
 module Briefbag
   class << self
