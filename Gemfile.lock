@@ -5,7 +5,7 @@ PATH
       anyway_config (~> 1.4.4)
       diplomat (~> 2.4.4)
       hash_to_struct (~> 1.0.0)
-      rainbow (~> 3.1.1)
+      rainbow (>= 2.2.2)
 
 GEM
   remote: https://rubygems.org/
