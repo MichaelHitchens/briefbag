@@ -44,11 +44,11 @@ module Briefbag
 
     def file_config
       Briefbag.warning_message(MESSAGES[:notice_yml])
-      data = Anyway::Config.for(config_name)
+      data = Anyway::Config.for(config_name.to_sym)
 
       return HashToStruct.struct(data.deep_symbolize_keys) if defined?(Rails)
 
-      HashToStruct.struct(symbolize_all_keys(data))
+      HashToStruct.struct(symbolize_all_keys(data))[config[:environment]]
     end
 
     def file_exist?
@@ -59,9 +59,6 @@ module Briefbag
       @yaml_file ||= "./config/#{config_name}.yml"
     end
 
-    def local_keys
-      @local_keys ||= YAML.safe_load(File.read(yaml_file))[environment].keys
-    end
 
     def symbolize_all_keys(h) # rubocop:disable  Naming/MethodParameterName
       if h.is_a? Hash
