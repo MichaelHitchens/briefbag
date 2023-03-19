@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'diplomat'
-require 'byebug'
 require 'socket'
+require 'yaml'
 
 module Briefbag
   class Diplomat
@@ -23,7 +23,6 @@ module Briefbag
 
     def configuration
       ::Diplomat.configure do |conf|
-        # Set up a custom Consul URL
         conf.url = url_build
         break if config[:consul_token].nil?
 
@@ -40,15 +39,9 @@ module Briefbag
       ::Diplomat::Kv.get_all(consul_folder)
     end
 
-    def json_parsing(value)
-      return JSON.parse(value.force_encoding('UTF-8')) if value.encoding.eql? 'ASCII-8BIT'
-
-      JSON.parse(value)
-    end
-
     def mapping_hash
       consul_data.each_with_object({}) do |item, hash|
-        hash[item[:key].split('/').last.to_sym] = json_parsing(item[:value])
+        hash[item[:key].split('/').last.to_sym] = ::YAML.safe_load(item[:value])
       end
     end
 
@@ -68,7 +61,7 @@ module Briefbag
     end
 
     def url_build
-      Object.const_get("URI::HTTP#{port.eql?(443) ? 'S' : ''}").build(host:, port:)
+      Object.const_get("URI::HTTP#{port.eql?(443) ? 'S' : ''}").build(host: host, port: port)
     end
 
     def check_consul

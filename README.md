@@ -1,6 +1,6 @@
 # Briefbag
 
-[![Gem Version](https://badge.fury.io/rb/briefbag.svg)](https://badge.fury.io/rb/dadatas)
+[![Gem Version](https://badge.fury.io/rb/briefbag.svg)](https://badge.fury.io/rb/briefbag)
 [![Gem](https://img.shields.io/gem/dt/briefbag.svg)](https://rubygems.org/gems/briefbag)
 
 
@@ -75,7 +75,7 @@ Or install it yourself as:
 - **consul_token(string)** - *(optional)* If you use ACL Token.
 - **consul_folder(string)** *(required)* Name config folder in consul.
 - **environment(string)** - *(optional)* Default value ${development}. Environment in consul.
-- **config_name(string)** - *(optional)* Default value ${application}. Config name in your application for example path to yml file:  'config/application.yml' you need use name 'application'.
+- **config_path(string)** - *(required)* Сonfig path to your config file. for example path to yml file:  'config/application.yml'
 
 ```ruby
 require 'briefbag'
@@ -86,7 +86,7 @@ params_config = {
   consul_token: '233b604b-b92e-48c8-a253-5f11514e4b50',
   consul_folder: 'briefbag',
   environment: 'test', 
-  config_name: 'some_config' 
+  config_path: 'config/some_config.yml' 
 }
 configs = Briefbag::Configuration.new(params_config).call
 => #<struct database=#<struct adapter="postgresql", host="localhost", port=5432, database="tets_dev", username="postgres", password=""... 

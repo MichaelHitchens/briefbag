@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 require 'briefbag/diplomat'
-require 'anyway_config'
 require 'rainbow'
-require 'byebug'
 require 'hash_to_struct'
+require 'yaml'
 
 module Briefbag
   class Configuration
-    attr_reader :config, :config_name
+    attr_reader :config, :config_path
 
     MESSAGES = {
       notice_yml: 'NOTICE! Your app is using configs from yml file',
@@ -21,16 +20,17 @@ module Briefbag
     }.freeze
 
     def initialize(config)
-      @config_name = config[:config_name] || 'application'
+      @config_path = config[:config_path]
       @config = config
     end
 
     def call
-      diplomat = Briefbag::Diplomat.new(config).call
-      return file_config if file_exist? && config[:environment].eql?('development')
+      return file_config if file_exist?
 
-      return diplomat_config(diplomat[:consul_data]) if diplomat.success?
+      diplomat = Briefbag::Diplomat.new(config).call
       return Briefbag.aborting_message(MESSAGES[:error_consul]) unless diplomat.success?
+
+      diplomat_config(diplomat[:consul_data])
     rescue StandardError
       return Briefbag.aborting_message(MESSAGES[:error_yml]) unless file_exist?
 
@@ -44,23 +44,15 @@ module Briefbag
 
     def file_config
       Briefbag.warning_message(MESSAGES[:notice_yml])
-      data = Anyway::Config.for(config_name.to_sym, env_prefix: config[:environment])
+      data = YAML.load_file(config_path)
 
-      return HashToStruct.struct(data.deep_symbolize_keys) if defined?(Rails)
+      return HashToStruct.struct(data.deep_symbolize_keys)[config[:environment]] if defined?(Rails)
 
-      HashToStruct.struct(symbolize_all_keys(data))
+      HashToStruct.struct(symbolize_all_keys(data))[config[:environment]]
     end
 
     def file_exist?
-      @file_exist ||= File.exist?(yaml_file)
-    end
-
-    def yaml_file
-      @yaml_file ||= "./config/#{config_name}.yml"
-    end
-
-    def local_keys
-      @local_keys ||= YAML.safe_load(File.read(yaml_file))[environment].keys
+      @file_exist ||= File.exist?(config_path)
     end
 
     def symbolize_all_keys(h) # rubocop:disable  Naming/MethodParameterName

@@ -1,9 +1,13 @@
 # CHANGELOG
 
-## 0.0.1 - 2023-01-22
+## 0.0.1 - 2023-02-03
 
 * Briefbag was born
 
-## 2.0.0 - 2023-01-22
+## 0.0.2 - 2023-03-15
 
-* update gem Briefbag to new ruby 3.1.2 
+* Fix bugs
+
+## 0.0.3 - 2023-03-16
+
+* Refactoring: delete anyway config, using yml from ruby, change params and upd docs, implementation rake tasks
