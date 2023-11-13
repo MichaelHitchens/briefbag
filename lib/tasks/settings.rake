@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'briefbag'
-require 'byebug'
 require 'rails'
 
 namespace :settings do
@@ -32,13 +31,14 @@ namespace :settings do
   end
 
   desc 'Transfer configs file in consul from/to projects'
-  task :transfer_config, [:consul_url, :consul_token, :project, :from_env, :to_env] do |_t, args|
-    project = args[:project]
-    from = args[:from_env]
-    to = args[:to_env]
+  task :transfer_config, [:consul_host, :consul_port, :consul_token, :from, :to] do |_t, args|
+    url = URI::HTTP.build(host: args[:consul_host], port: args[:consul_port])
+
+    from = args[:from]
+    to = args[:to]
 
     Diplomat.configure do |config|
-      config.url = args[:consul_url]
+      config.url = url
       config.options = {
         ssl: { version: :TLSv1_2 },
         headers: {
@@ -46,21 +46,20 @@ namespace :settings do
         }
       }
     end
-    keys = Diplomat::Kv.get("#{from}/#{project}", keys: true)
+
+    keys = Diplomat::Kv.get(from.to_s, keys: true)
     keys.delete_at(0) # delete self name folder
     config_names = keys.map { |k| k.split('/').last }
 
     config_names.each do |config_name|
       warn Rainbow("Start read data for key: #{config_name}").yellow
-      config = Diplomat::Kv.get("#{from}/#{project}/#{config_name}")
-      Diplomat::Kv.put("#{to}/#{project}/#{config_name}", config)
+      config = Diplomat::Kv.get("#{from}/#{config_name}")
+      Diplomat::Kv.put("#{to}/#{config_name}", config)
       warn Rainbow("Success transfer data for key: #{config_name}").green
     end
   end
 
-
   desc 'create application.yml from template'
   task template2yml: :environment do
-    p 'ya rake task'
   end
 end
