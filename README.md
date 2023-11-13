@@ -27,11 +27,9 @@ And what if you need to share the configuration file with colleagues, or use thi
 Consul comes to the rescue. Thanks to him, you can act config and undress in different stands.
 Generation `.yml` file there are 2 rake tasks: rake
 
-- **rake settings:consul2yml** -  Get key/value variables from consul to `.yml` file
-- **rake settings:template2yml** - Generate basic `.yml` for your app. Based on it, you can fill it with any values
-
-
 Need add to you Rakefile
+
+
 ```ruby
 
 require 'briefbag'
@@ -39,6 +37,24 @@ require 'briefbag'
 spec = Gem::Specification.find_by_name 'briefbag'
 load "#{spec.gem_dir}/lib/tasks/settings.rake"
 ```
+
+- **rake settings:consul2yml** -  Get key/value variables from consul to `.yml` file
+- **rake settings:transfer_config** - Transfer all collection configs in new consul folder
+
+```shell
+  #rake settings:consul2yml[consul_host,consul_port,consul_token, my_project, environment,config_folder]  
+  rake settings:consul2yml['127.0.0.1',8500,'consul_token','my_project','development',"config/configuration.yml"]  
+```
+
+```shell
+  #rake settings:consul2yml[consul_host,consul_port,consul_token, my_project, from_path, to_path]  
+  rake settings:transfer_config['127.0.0.1',8500,'consul_token','my_project','from','to']  
+```
+
+
+
+
+
 
 #### Notifications:
 If you use `.yml` .You will see: 
