@@ -14,3 +14,4 @@ Gemfile.lock
 /.idea
 /.byebug_history
 config/application.yml
+personal_notice.md
