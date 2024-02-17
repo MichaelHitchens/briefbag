@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+ENV["RAILS_ENV"] ||= ENV["RACK_ENV"] || "development"
+
+require 'briefbag'
+
+APP_ROOT = File.expand_path("..", __dir__)
+Dir.chdir(APP_ROOT) do
+  Briefbag::ConsulToYml.run(ARGV)
+end
