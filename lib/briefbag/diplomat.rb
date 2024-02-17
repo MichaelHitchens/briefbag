@@ -41,7 +41,7 @@ module Briefbag
 
     def mapping_hash
       consul_data.each_with_object({}) do |item, hash|
-        hash[item[:key].split('/').last.to_sym] = ::YAML.safe_load(item[:value])
+        hash[item[:key].split('/').last] = ::YAML.safe_load(item[:value])
       end
     end
 

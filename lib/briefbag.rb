@@ -2,9 +2,12 @@
 
 require 'briefbag/version'
 require 'briefbag/configuration'
+require 'briefbag/runner'
+require 'briefbag/consul_to_yml'
 
 module Briefbag
   require 'briefbag/railtie' if defined?(Rails::Railtie)
+  
   class << self
     def warning_message(message, color: nil)
       color ||= :yellow
@@ -15,5 +18,6 @@ module Briefbag
       abort Rainbow(message).red
     end
   end
+  
   class Error < StandardError; end
 end
